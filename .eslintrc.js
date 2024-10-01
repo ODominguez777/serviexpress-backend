@@ -23,7 +23,8 @@ module.exports = {
     '@typescript-eslint/no-explicit-any': 'off',
     'padding-line-between-statements': [
       'error',
-      { blankLine: 'always', prev: 'import', next: '*' },
+      { blankLine: 'always', prev: 'import', next: '*' }, 
+      { blankLine: 'always', prev: '*', next: 'import' }  
     ],
   },
 };
