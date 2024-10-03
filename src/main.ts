@@ -1,4 +1,6 @@
 import { NestFactory } from '@nestjs/core';
+import { join } from 'path';
+import * as express from 'express';
 import * as dotenv from 'dotenv';
 
 dotenv.config();
@@ -8,6 +10,7 @@ import { ValidationPipe } from '@nestjs/common';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
+  app.use('/public', express.static(join(__dirname, '..', 'public')));
 
   // Configura el ValidationPipe
   app.useGlobalPipes(
@@ -21,6 +24,6 @@ async function bootstrap() {
   //Swagger Config
   setupSwagger(app);
 
-  await app.listen(3000);
+  await app.listen(process.env.PORT);
 }
 bootstrap();
