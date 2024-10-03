@@ -39,17 +39,9 @@ Ensure you have the following installed on your system:
 
 3. Create an .env file at the root directory and add the following configuration:
 
-# Database Configuration
-
 - MONGODB_URI=mongodb+srv://<username>:<password>@<cluster>/<dbname>?retryWrites=true&w=majority
-
-# SendGrid Configuration
-
 - SENDGRID_API_KEY='your-sendgrid-api-key'
 - SENDGRID_FROM_EMAIL='your-email@example.com'
-
-# Server Configuration
-
 - PORT=3000
 
 # Compile and Run The Project
@@ -73,5 +65,5 @@ The main API endpoints for user registration, login, and service management are 
 - http://localhost:3000/api
 
 # Licence
-This project is licensed under the MIT License - see the LICENSE file for details.
 
+This project is licensed under the MIT License - see the LICENSE file for details.
