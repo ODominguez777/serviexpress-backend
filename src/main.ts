@@ -1,5 +1,7 @@
 import { NestFactory } from '@nestjs/core';
+import * as dotenv from 'dotenv';
 
+dotenv.config();
 import { AppModule } from './app.module';
 import { setupSwagger } from './config/swagger.config';
 import { ValidationPipe } from '@nestjs/common';
