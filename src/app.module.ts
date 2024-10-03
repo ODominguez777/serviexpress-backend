@@ -1,8 +1,15 @@
 import { Module } from '@nestjs/common';
 import { UsersModule } from './users/users.module';
 import { MongooseModule } from '@nestjs/mongoose';
+import { EmailService } from './email/email.service';
+import { EmailModule } from './email/email.module';
 
 @Module({
-  imports: [MongooseModule.forRoot(process.env.MONGODB_URI), UsersModule],
+  imports: [
+    MongooseModule.forRoot(process.env.MONGODB_URI),
+    UsersModule,
+    EmailModule,
+  ],
+  providers: [EmailService],
 })
 export class AppModule {}
