@@ -4,7 +4,6 @@ import {
   IsNotEmpty,
   IsEmail,
   IsOptional,
-  IsBoolean,
   Matches,
 } from 'class-validator';
 
@@ -55,18 +54,7 @@ export class CreateUserDto {
   })
   password: string;
 
-  @ApiProperty({ description: 'Is the user active?', default: true })
-  @IsBoolean()
-  @IsOptional()
-  isActive?: boolean;
-
-  @ApiProperty({ description: 'Is the user banned?', default: false })
-  @IsBoolean()
-  @IsOptional()
-  isBanned?: boolean;
-
-  @ApiProperty({ description: 'The role of the user', example: 'user' })
-  @IsString()
+  @ApiProperty({ description: 'Profile image url' })
   @IsNotEmpty()
-  role: string; // 'admin', 'handyman', 'user'
+  profilePicUrl: string;
 }
