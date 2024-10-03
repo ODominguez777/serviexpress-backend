@@ -20,10 +20,13 @@ export class User {
   @Prop({ required: true })
   password: string;
 
+  @Prop({ required: true })
+  profilePicUrl: string;
+
   @Prop()
   phone: string;
 
-  @Prop({ default: true })
+  @Prop({ default: false })
   isActive: boolean;
 
   @Prop({ default: false })
