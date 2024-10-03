@@ -1,41 +1,62 @@
-<p align="center">
-  <a href="http://nestjs.com/" target="blank"><img src="https://nestjs.com/img/logo-small.svg" width="120" alt="Nest Logo" /></a>
-</p>
+# ServiExpress
 
-[circleci-image]: https://img.shields.io/circleci/build/github/nestjs/nest/master?token=abc123def456
-[circleci-url]: https://circleci.com/gh/nestjs/nest
+ServiExpress is a web-based marketplace that connects independent contractors (handymen, service providers) with customers in Rivas. It allows users to create accounts, browse services, make real-time bookings, and leave feedback. The platform offers features such as secure authentication, personalized recommendations, and multi-language support. It aims to make finding and booking reliable service providers easy and convenient.
 
-  <p align="center">A progressive <a href="http://nodejs.org" target="_blank">Node.js</a> framework for building efficient and scalable server-side applications.</p>
-    <p align="center">
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/v/@nestjs/core.svg" alt="NPM Version" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/l/@nestjs/core.svg" alt="Package License" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/dm/@nestjs/common.svg" alt="NPM Downloads" /></a>
-<a href="https://circleci.com/gh/nestjs/nest" target="_blank"><img src="https://img.shields.io/circleci/build/github/nestjs/nest/master" alt="CircleCI" /></a>
-<a href="https://coveralls.io/github/nestjs/nest?branch=master" target="_blank"><img src="https://coveralls.io/repos/github/nestjs/nest/badge.svg?branch=master#9" alt="Coverage" /></a>
-<a href="https://discord.gg/G7Qnnhy" target="_blank"><img src="https://img.shields.io/badge/discord-online-brightgreen.svg" alt="Discord"/></a>
-<a href="https://opencollective.com/nest#backer" target="_blank"><img src="https://opencollective.com/nest/backers/badge.svg" alt="Backers on Open Collective" /></a>
-<a href="https://opencollective.com/nest#sponsor" target="_blank"><img src="https://opencollective.com/nest/sponsors/badge.svg" alt="Sponsors on Open Collective" /></a>
-  <a href="https://paypal.me/kamilmysliwiec" target="_blank"><img src="https://img.shields.io/badge/Donate-PayPal-ff3f59.svg" alt="Donate us"/></a>
-    <a href="https://opencollective.com/nest#sponsor"  target="_blank"><img src="https://img.shields.io/badge/Support%20us-Open%20Collective-41B883.svg" alt="Support us"></a>
-  <a href="https://twitter.com/nestframework" target="_blank"><img src="https://img.shields.io/twitter/follow/nestframework.svg?style=social&label=Follow" alt="Follow us on Twitter"></a>
-</p>
-  <!--[![Backers on Open Collective](https://opencollective.com/nest/backers/badge.svg)](https://opencollective.com/nest#backer)
-  [![Sponsors on Open Collective](https://opencollective.com/nest/sponsors/badge.svg)](https://opencollective.com/nest#sponsor)-->
+## Features
 
-## Description
+- **User Authentication**: Secure authentication using email, password, and activation codes for user account validation.
+- **Service Listings**: Browse services provided by independent contractors.
+- **Real-Time Booking**: Book services in real-time with immediate confirmation.
+- **User Ratings & Reviews**: Customers can rate and review services received.
+- **Notifications**: Receive real-time notifications for bookings, reviews, and more.
+- **Service Provider Analytics**: Contractors can view detailed analytics about their performance and service bookings.
+- **Multi-language Support**: The platform supports Spanish and English.
 
-[Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
+## Getting Started
 
-## Project setup
+### Prerequisites
 
-```bash
-$ npm install
-```
+Ensure you have the following installed on your system:
 
-## Compile and run the project
+- [Node.js](https://nodejs.org/en/) (v16.x or higher)
+- [MongoDB Atlas](https://www.mongodb.com/cloud/atlas) (or any MongoDB instance)
+- [SendGrid](https://sendgrid.com/) account for email service
 
-```bash
+### Installation
+
+1. Clone the repository:
+
+   ```bash
+   git clone https://github.com/ODominguez777/serviexpress-backend.git
+   cd serviexpress-backend
+   ```
+
+2. Install dependencies
+
+   ```bash
+   npm install
+   ```
+
+3. Create an .env file at the root directory and add the following configuration:
+
+# Database Configuration
+
+- MONGODB_URI=mongodb+srv://<username>:<password>@<cluster>/<dbname>?retryWrites=true&w=majority
+
+# SendGrid Configuration
+
+- SENDGRID_API_KEY='your-sendgrid-api-key'
+- SENDGRID_FROM_EMAIL='your-email@example.com'
+
+# Server Configuration
+
+- PORT=3000
+
+# Compile and Run The Project
+
 # development
+
+```bash
 $ npm run start
 
 # watch mode
@@ -45,41 +66,12 @@ $ npm run start:dev
 $ npm run start:prod
 ```
 
-## Run tests
+# Api Endpoints
 
-```bash
-# unit tests
-$ npm run test
+The main API endpoints for user registration, login, and service management are documented through Swagger. Once the application is running, you can access the API documentation by visiting:
 
-# e2e tests
-$ npm run test:e2e
+- http://localhost:3000/api
 
-# test coverage
-$ npm run test:cov
-```
+# Licence
+This project is licensed under the MIT License - see the LICENSE file for details.
 
-## Resources
-
-Check out a few resources that may come in handy when working with NestJS:
-
-- Visit the [NestJS Documentation](https://docs.nestjs.com) to learn more about the framework.
-- For questions and support, please visit our [Discord channel](https://discord.gg/G7Qnnhy).
-- To dive deeper and get more hands-on experience, check out our official video [courses](https://courses.nestjs.com/).
-- Visualize your application graph and interact with the NestJS application in real-time using [NestJS Devtools](https://devtools.nestjs.com).
-- Need help with your project (part-time to full-time)? Check out our official [enterprise support](https://enterprise.nestjs.com).
-- To stay in the loop and get updates, follow us on [X](https://x.com/nestframework) and [LinkedIn](https://linkedin.com/company/nestjs).
-- Looking for a job, or have a job to offer? Check out our official [Jobs board](https://jobs.nestjs.com).
-
-## Support
-
-Nest is an MIT-licensed open source project. It can grow thanks to the sponsors and support by the amazing backers. If you'd like to join them, please [read more here](https://docs.nestjs.com/support).
-
-## Stay in touch
-
-- Author - [Kamil Myśliwiec](https://twitter.com/kammysliwiec)
-- Website - [https://nestjs.com](https://nestjs.com/)
-- Twitter - [@nestframework](https://twitter.com/nestframework)
-
-## License
-
-Nest is [MIT licensed](https://github.com/nestjs/nest/blob/master/LICENSE).
