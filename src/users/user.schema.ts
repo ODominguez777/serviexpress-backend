@@ -38,5 +38,8 @@ export class User {
     required: true,
   })
   role: string;
+
+  @Prop({ required: false }) // Añadir código de activación
+  activationCode: string | null;
 }
 export const UserSchema = SchemaFactory.createForClass(User);
