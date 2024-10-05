@@ -126,7 +126,7 @@ export class UsersService {
     if (updatePasswordDto.currentPassword === updatePasswordDto.password) {
       throw new BadRequestException('You must choose different passwords');
     }
-    const user = await this.userModel.findById(id).exec();
+    const user = await this.userModel.findById(id).select('+password').exec();
 
     if (!user) {
       throw new NotFoundException(`User with ID ${id} not found`);

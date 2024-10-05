@@ -41,7 +41,6 @@ export class AuthController {
   })
   @ApiOperation({ summary: 'Refresh the access token using a refresh token' })
   async refreshToken(@Headers('refreshToken') token: string) {
-    console.log(token);
     if (!token) {
       throw new UnauthorizedException('No refresh token provided');
     }
