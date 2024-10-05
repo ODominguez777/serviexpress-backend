@@ -37,7 +37,6 @@ export class UsersService {
     return user;
   }
   async activateAccount(activationCode: string): Promise<void> {
-    console.log('Codigo', activationCode);
     const user = await this.userModel.findOne({ activationCode }).exec();
 
     if (!user) {
@@ -52,7 +51,6 @@ export class UsersService {
     user.activationCode = null;
     try {
       await user.save();
-      console.log('Usuario guardado exitosamente');
     } catch (error) {
       console.error('Error al guardar el usuario:', error);
     }
@@ -83,10 +81,20 @@ export class UsersService {
       })
       .select('name lastname email username profilePicUrl phone -_id')
       .exec();
-    console.log('usuario', user);
     if (!user) {
       throw new NotFoundException(`User with ID ${identifier} not found`);
     }
+    return user;
+  }
+
+  async findUserForAuth(identifier: string): Promise<User | null> {
+    const user = await this.userModel
+      .findOne({
+        $or: [{ username: identifier }, { email: identifier }],
+      })
+      .select('+password')
+      .exec();
+
     return user;
   }
 

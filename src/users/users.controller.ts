@@ -49,7 +49,6 @@ export class UsersController {
     @Query('code') code: string,
     @Res() res: Response
   ): Promise<void> {
-    console.log('Acasta');
     try {
       await this.usersService.activateAccount(code);
       res.redirect('/public/activation-success.html');
