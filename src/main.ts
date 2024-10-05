@@ -1,3 +1,4 @@
+/* eslint-disable */
 import { NestFactory } from '@nestjs/core';
 import { join } from 'path';
 import * as express from 'express';
@@ -24,6 +25,11 @@ async function bootstrap() {
   //Swagger Config
   setupSwagger(app);
 
+  app
+    .getHttpAdapter()
+    .get('/', (req: express.Request, res: express.Response) => {
+      res.send('¡Hola Mundo!');
+    });
   await app.listen(process.env.PORT);
 }
 bootstrap();
