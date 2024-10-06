@@ -41,12 +41,15 @@ export class UsersController {
   @Post()
   @ApiOperation({ summary: 'Create a new user' })
   @ApiResponse({ status: 201, description: 'User Created.' })
-  async create(@Body() createUserDto: CreateUserDto): Promise<User> {
+  async create(
+    @Body() createUserDto: CreateUserDto
+  ): Promise<{ message: string }> {
     await this.validationService.checkUserUniqueness(
       createUserDto.username,
       createUserDto.email
     );
-    return this.usersService.create(createUserDto);
+    await this.usersService.create(createUserDto);
+    return { message: 'Success' };
   }
 
   //  Get All Users
