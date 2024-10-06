@@ -19,6 +19,7 @@ import { CreateUserDto } from './dto/create-user.dto';
 import { User } from './user.schema';
 import {
   ApiBearerAuth,
+  ApiHeader,
   ApiOperation,
   ApiResponse,
   ApiTags,
@@ -27,6 +28,9 @@ import { UpdateUserDto } from './dto/update-user.dto';
 import { UpdatePasswordDto } from './dto/update-password.dto';
 import { Response } from 'express';
 import { JwtAuthGuard } from './auth/jwt-auth.guard';
+import { UpdateUserRoleDto } from './dto/update-user-role.dto';
+import { MongoIdPipe } from 'src/common/pipes/validate-mongo-id/validate-mongo-id.pipe';
+import { ApiKeyGuard } from 'src/guards/api-key/api-key.guard';
 
 @ApiTags('Users')
 @Controller('users')
@@ -131,12 +135,37 @@ export class UsersController {
     };
   }
 
+  // Give Admin Role
+  @UseGuards(ApiKeyGuard)
+  @Patch('change-roles/:id')
+  @ApiHeader({
+    name: 'api_key',
+    description: 'api_key from authorization',
+    required: true,
+  })
+  @ApiOperation({ summary: 'Update User Role' })
+  @ApiResponse({
+    status: 200,
+    description: 'Role Updated Successfully',
+  })
+  async changeRole(
+    @Param('id', MongoIdPipe) id: string,
+    @Body() updateUserRoleDto: UpdateUserRoleDto
+  ): Promise<{ message: string }> {
+    await this.usersService.changeUserRole(id, updateUserRoleDto);
+    return {
+      message: 'Role Changed Successfully.',
+    };
+  }
+
   // Delete user
-  @Delete('delete-user/:id')
+  @Delete('delete-user')
   @ApiOperation({ summary: 'Delete User' })
   @ApiResponse({ status: 200, description: 'user Deleted successfully.' })
-  async deleteUser(@Param('id') id: string): Promise<{ message: string }> {
-    await this.usersService.deleteUser(id);
+  async deleteUser(
+    @Query('email') email: string
+  ): Promise<{ message: string }> {
+    await this.usersService.deleteUser(email);
     return {
       message: 'User Deleted successfully.',
     };

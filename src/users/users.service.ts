@@ -12,6 +12,7 @@ import { UpdateUserDto } from './dto/update-user.dto';
 import { UpdatePasswordDto } from './dto/update-password.dto';
 import { EmailService } from 'src/email/email.service';
 import { v4 as uuidv4 } from 'uuid';
+import { UpdateUserRoleDto } from './dto/update-user-role.dto';
 
 @Injectable()
 export class UsersService {
@@ -152,17 +153,28 @@ export class UsersService {
       .exec();
   }
 
-  async deleteUser(id: string): Promise<void> {
-    if (!Types.ObjectId.isValid(id)) {
-      throw new BadRequestException(`Invalid ID format: ${id}`);
-    }
+  async deleteUser(email: string): Promise<void> {
+    const user = await this.userModel.findOne({ email }).exec();
 
+    console.log(user);
+    if (!user) {
+      throw new NotFoundException('The user doesnt exists');
+    }
+    await this.userModel.findByIdAndDelete(user._id).exec();
+  }
+
+  async changeUserRole(
+    id: string,
+    updateUserRoleDto: UpdateUserRoleDto
+  ): Promise<User> {
     const user = await this.userModel.findById(id).exec();
 
     console.log(user);
     if (!user) {
       throw new NotFoundException('The user doesnt exists');
     }
-    await this.userModel.findByIdAndDelete(id).exec();
+
+    user.role = updateUserRoleDto.role;
+    return user.save();
   }
 }

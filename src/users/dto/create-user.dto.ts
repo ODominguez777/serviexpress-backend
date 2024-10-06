@@ -49,10 +49,10 @@ export class CreateUserDto {
   @IsString()
   @IsNotEmpty()
   @Matches(
-    /^(?=.*[A-Z])(?=.*[a-z])(?=.*\d)(?=.*[@$!#%*?&])[A-Za-z\d@$!#%*?&]{8,16}$/,
+    /^(?=.*[A-Z])(?=.*[a-z])(?=.*\d)(?=.*[@$!#%*?&\-])[A-Za-z\d@$!#%*?&\-]{8,16}$/,
     {
       message:
-        'Password must be between 8 and 16 characters long, and contain at least one letter, one number, and one special character.',
+        'Password must be between 8 and 16 characters long, and contain at least one letter, one number, one special character (including dash "-").',
     }
   )
   password: string;
