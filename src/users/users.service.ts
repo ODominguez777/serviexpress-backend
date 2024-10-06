@@ -155,8 +155,6 @@ export class UsersService {
 
   async deleteUser(email: string): Promise<void> {
     const user = await this.userModel.findOne({ email }).exec();
-
-    console.log(user);
     if (!user) {
       throw new NotFoundException('The user doesnt exists');
     }
@@ -168,12 +166,9 @@ export class UsersService {
     updateUserRoleDto: UpdateUserRoleDto
   ): Promise<User> {
     const user = await this.userModel.findById(id).exec();
-
-    console.log(user);
     if (!user) {
       throw new NotFoundException('The user doesnt exists');
     }
-
     user.role = updateUserRoleDto.role;
     return user.save();
   }

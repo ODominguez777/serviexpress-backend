@@ -7,7 +7,6 @@ import {
   Query,
   Put,
   Patch,
-  Res,
   UseGuards,
   Request,
   ForbiddenException,
@@ -26,7 +25,6 @@ import {
 } from '@nestjs/swagger';
 import { UpdateUserDto } from './dto/update-user.dto';
 import { UpdatePasswordDto } from './dto/update-password.dto';
-import { Response } from 'express';
 import { JwtAuthGuard } from './auth/jwt-auth.guard';
 import { UpdateUserRoleDto } from './dto/update-user-role.dto';
 import { MongoIdPipe } from 'src/common/pipes/validate-mongo-id/validate-mongo-id.pipe';
@@ -64,16 +62,14 @@ export class UsersController {
   // Activate user account
   @Get('activate-account')
   async activateAccount(
-    @Query('code') code: string,
-    @Res() res: Response
-  ): Promise<void> {
+    @Query('code') code: string
+  ): Promise<{ message: string }> {
     try {
       await this.usersService.activateAccount(code);
-      res.redirect('/public/activation-success.html');
     } catch (error) {
       console.error(error);
-      res.redirect('/public/activation-failed.html');
     }
+    return { message: 'Succesfull' };
   }
 
   // Find user by email or username

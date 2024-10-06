@@ -12,6 +12,7 @@ import { AllExceptionsFilter } from './common/filters/http-exception/http-except
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
+  app.enableCors();
   app.use('/public', express.static(join(__dirname, '..', 'public')));
 
   app.useGlobalFilters(new AllExceptionsFilter());
