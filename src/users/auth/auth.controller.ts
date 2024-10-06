@@ -21,15 +21,19 @@ export class AuthController {
   @ApiOperation({ summary: 'Sign in with a registered user' })
   @ApiResponse({ status: 201, description: 'Successfull Sign In.' })
   async login(@Body() loginDto: LoginDto) {
+    console.log(loginDto);
     const validUser = await this.authService.validateUser(
-      loginDto.username,
+      loginDto.identifier,
       loginDto.password
     );
     if (!validUser) {
       throw new UnauthorizedException('Invalid username or password');
     }
 
-    const payload = { username: validUser.username, sub: validUser.userId };
+    const payload = {
+      username: validUser.username,
+      sub: validUser._id.toString(),
+    };
     return this.authService.login(payload);
   }
 

@@ -87,7 +87,7 @@ export class UsersService {
     return user;
   }
 
-  async findUserForAuth(identifier: string): Promise<User | null> {
+  async findUserForAuth(identifier: string): Promise<UserDocument | null> {
     const user = await this.userModel
       .findOne({
         $or: [{ username: identifier }, { email: identifier }],

@@ -6,12 +6,14 @@ export function setupSwagger(app: INestApplication): void {
     .setTitle('ServiExpress')
     .setDescription('This is the documentation of the ServiExpress application')
     .setVersion('1.0')
-    .addBearerAuth({
-      type: 'apiKey',
-      in: 'header',
-      name: 'Authorization',
-      description: 'Please enter token',
-    })
+    .addBearerAuth(
+      {
+        type: 'http',
+        scheme: 'bearer',
+        bearerFormat: 'JWT',
+      },
+      'Authorization'
+    )
     .build();
 
   const document = SwaggerModule.createDocument(app, config);

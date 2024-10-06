@@ -7,7 +7,7 @@ import { AuthService } from './auth.service';
 export class LocalStrategy extends PassportStrategy(Strategy) {
   constructor(private authService: AuthService) {
     // Define aquí el campo que Passport debe buscar para la autenticación
-    super({ usernameField: 'username' });
+    super({ usernameField: 'identifier' });
   }
 
   async validate(username: string, password: string): Promise<any> {
