@@ -8,17 +8,20 @@ dotenv.config();
 import { AppModule } from './app.module';
 import { setupSwagger } from './config/swagger.config';
 import { ValidationPipe } from '@nestjs/common';
+import { AllExceptionsFilter } from './common/filters/http-exception/http-exception.filter';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
   app.use('/public', express.static(join(__dirname, '..', 'public')));
 
+  app.useGlobalFilters(new AllExceptionsFilter());
+
   // Configura el ValidationPipe
   app.useGlobalPipes(
     new ValidationPipe({
       transform: true,
-      whitelist: true, // Elimina propiedades no definidas en el DTO
-      forbidNonWhitelisted: true, // Lanza un error si hay propiedades no definidas en el DTO
+      whitelist: true,
+      forbidNonWhitelisted: true,
     })
   );
 

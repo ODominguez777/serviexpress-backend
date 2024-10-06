@@ -11,6 +11,7 @@ import {
   UseGuards,
   Request,
   ForbiddenException,
+  Delete,
 } from '@nestjs/common';
 import { UsersService } from './users.service';
 import { ValidationService } from './validation/validation.service';
@@ -113,17 +114,31 @@ export class UsersController {
   // Change Password
   @UseGuards(JwtAuthGuard)
   @ApiBearerAuth('Authorization')
-  @Patch(':id/password')
+  @Patch('change-password/:id')
   @ApiOperation({ summary: 'Change Password' })
   @ApiResponse({ status: 200, description: 'Password updated successfully.' })
   async updatePassword(
     @Param('id') id: string,
     @Body() updatePasswordDto: UpdatePasswordDto,
     @Request() req
-  ): Promise<void> {
+  ): Promise<{ message: string }> {
     if (req.user.userId !== id) {
       throw new ForbiddenException('You can only uchange your own password');
     }
-    return this.usersService.updatePassword(id, updatePasswordDto);
+    await this.usersService.updatePassword(id, updatePasswordDto);
+    return {
+      message: 'Password updated successfully.',
+    };
+  }
+
+  // Delete user
+  @Delete('delete-user/:id')
+  @ApiOperation({ summary: 'Delete User' })
+  @ApiResponse({ status: 200, description: 'user Deleted successfully.' })
+  async deleteUser(@Param('id') id: string): Promise<{ message: string }> {
+    await this.usersService.deleteUser(id);
+    return {
+      message: 'User Deleted successfully.',
+    };
   }
 }

@@ -151,4 +151,18 @@ export class UsersService {
       )
       .exec();
   }
+
+  async deleteUser(id: string): Promise<void> {
+    if (!Types.ObjectId.isValid(id)) {
+      throw new BadRequestException(`Invalid ID format: ${id}`);
+    }
+
+    const user = await this.userModel.findById(id).exec();
+
+    console.log(user);
+    if (!user) {
+      throw new NotFoundException('The user doesnt exists');
+    }
+    await this.userModel.findByIdAndDelete(id).exec();
+  }
 }
