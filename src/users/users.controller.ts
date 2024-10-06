@@ -25,7 +25,7 @@ import {
 } from '@nestjs/swagger';
 import { UpdateUserDto } from './dto/update-user.dto';
 import { UpdatePasswordDto } from './dto/update-password.dto';
-import { JwtAuthGuard } from './auth/jwt-auth.guard';
+import { JwtAuthGuard } from 'src/auth/guards/jwt-auth.guard';
 import { UpdateUserRoleDto } from './dto/update-user-role.dto';
 import { MongoIdPipe } from 'src/common/pipes/validate-mongo-id/validate-mongo-id.pipe';
 import { ApiKeyGuard } from 'src/guards/api-key/api-key.guard';
@@ -85,6 +85,20 @@ export class UsersController {
     @Query('identifier') identifier: string
   ): Promise<Partial<User>> {
     return this.usersService.findUserByUsernameOrEmail(identifier);
+  }
+
+  // Find if user Exists
+  @Get('check-email')
+  @ApiOperation({ summary: 'Get if the user exists and is active' })
+  @ApiResponse({
+    status: 200,
+    description: 'Get if the user exists and is active .',
+  })
+  async isEmailExists(
+    @Query('email') email: string
+  ): Promise<{ userExist: boolean; isUserActive: boolean }> {
+    const user = await this.usersService.checkEmail(email);
+    return { userExist: true, isUserActive: user.isActive };
   }
 
   // Find User By Id

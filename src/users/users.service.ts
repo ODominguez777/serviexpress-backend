@@ -83,7 +83,21 @@ export class UsersService {
       .select('name lastname email username profilePicUrl phone -_id')
       .exec();
     if (!user) {
-      throw new NotFoundException(`User with ID ${identifier} not found`);
+      throw new NotFoundException(
+        `User with Identificator ${identifier} not found`
+      );
+    }
+    return user;
+  }
+  async checkEmail(email: string): Promise<Partial<User>> {
+    const user = await this.userModel
+      .findOne({
+        email,
+      })
+      .select('isActive email -_id')
+      .exec();
+    if (!user) {
+      throw new NotFoundException(`User with Identificator ${email} not found`);
     }
     return user;
   }

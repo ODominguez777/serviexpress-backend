@@ -1,7 +1,7 @@
 /* eslint-disable */
 import { Injectable, UnauthorizedException } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
-import { UsersService } from '../users.service';
+import { UsersService } from 'src/users/users.service';
 import { comparePasswords } from 'src/utils/password.util';
 @Injectable()
 export class AuthService {
